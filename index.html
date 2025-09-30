@@ -3,33 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Cronograma</title>
+    <title>Cronograma</title>
     <style>
         /* --- Configurações Gerais --- */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
+        :root {
+            --cor-primaria: #F9693B;
+            --cor-primaria-escura: #D34B1A;
+            --cor-fundo: #FBF5EE;
+            --cor-texto-claro: white;
+            --cor-placeholder: #FFDAB9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #FBF5EE; /* Cor de fundo creme */
-            color: #F9693B; /* Cor do texto laranja principal */
+            background-color: var(--cor-fundo);
+            color: var(--cor-primaria);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
+            padding: 20px;
         }
 
         /* --- Container Principal --- */
         .container {
             text-align: center;
-            padding: 20px;
+            padding: 50px 50px; 
+            width: 90%;
+            max-width: 580px; 
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px 0 rgba(211, 75, 26, 0.25);
         }
 
         /* --- Título --- */
         h1 {
-            font-size: 4rem;
+            font-size: 3.8rem;
             letter-spacing: 2px;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
         }
 
         /* --- Formulário --- */
@@ -37,187 +58,221 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 2rem;
+            width: 100%;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
             width: 100%;
-            max-width: 350px;
         }
         
         .form-group label {
-            font-size: 0.8rem;
+            font-size: 1rem;
             font-weight: 700;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         /* --- Input e Select --- */
-        input[type="text"],
+        input[type=text],
         select {
-            background-color: #F9693B;
-            color: white;
+            background-color: var(--cor-primaria);
+            color: var(--cor-texto-claro);
             border: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 1rem;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
             width: 100%;
             box-sizing: border-box;
             text-align: center;
+            box-shadow: 0 4px 15px -5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        input[type=text]:focus,
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px var(--cor-fundo), 0 0 0 7px var(--cor-primaria-escura);
         }
 
-        input[type="text"]::placeholder {
-            color: #FFDAB9; /* Laranja bem claro */
+        input[type=text]::placeholder {
+            color: var(--cor-placeholder);
         }
         
         select {
-             -webkit-appearance: none;
-             -moz-appearance: none;
-             appearance: none;
-             background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
-             background-repeat: no-repeat;
-             background-position: right 15px top 50%;
-             background-size: .65em auto;
-             padding-right: 30px; /* Espaço para a seta */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 20px top 50%;
+            background-size: .75em auto;
+            padding-right: 40px;
         }
 
         /* --- Botões de Dias da Semana --- */
         .dias-semana {
             display: flex;
-            gap: 10px;
+            flex-wrap: nowrap;
+            gap: 12px;
             justify-content: center;
         }
 
-        .dias-semana input[type="checkbox"] {
-            display: none; /* Esconde o checkbox padrão */
+        .dias-semana input[type=checkbox] {
+            display: none;
         }
 
         .dias-semana label {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 45px;
-            height: 45px;
-            background-color: #F9693B;
-            color: white;
-            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--cor-primaria);
+            color: var(--cor-texto-claro);
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 15px -5px rgba(0,0,0,0.2);
         }
 
-        /* Estilo para quando o dia é selecionado */
-        .dias-semana input[type="checkbox"]:checked + label {
-            background-color: #D34B1A; /* Laranja mais escuro */
-            transform: scale(1.1);
+        .dias-semana input[type=checkbox]:checked+label,
+        .dias-semana label:hover {
+            background-color: var(--cor-primaria-escura);
+            transform: translateY(-2px) scale(1.1);
         }
 
-        /* --- Botão de Gerar Cronograma --- */
-        .submit-button {
-            background-color: #F9693B;
-            color: white;
+        /* --- Botões de Ação --- */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .action-button {
+            background-color: var(--cor-primaria);
+            color: var(--cor-texto-claro);
             border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            font-size: 1.1rem;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-size: 1.2rem;
             font-weight: 700;
             letter-spacing: 1px;
+            text-transform: uppercase;
             cursor: pointer;
             width: 100%;
-            max-width: 350px;
-            margin-top: 1.5rem;
-            transition: background-color 0.2s ease-in-out;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px -5px rgba(211, 75, 26, 0.5);
+            position: relative; /* Necessário para posicionar o selo */
+        }
+        
+        .action-button:hover {
+            background-color: var(--cor-primaria-escura);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 25px -5px rgba(211, 75, 26, 0.7);
+        }
+        
+        /* NOVO: Estilo para o botão desativado */
+        .action-button:disabled {
+            background-color: #cccccc;
+            opacity: 0.7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        /* NOVO: Estilo para o selo "Em Breve" */
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--cor-primaria-escura);
+            color: white;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .submit-button:hover {
-            background-color: #D34B1A;
-        }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>CRONOGRAMA</h1>
-        
-        <form id="cronograma-form">
-
+        <form onsubmit="return false;">
             <div class="form-group">
                 <label for="cpf">CPF</label>
-                <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF">
+                <input type="text" id="cpf" placeholder="Digite seu CPF">
             </div>
-
             <div class="form-group">
                 <label>DIAS DISPONÍVEIS</label>
                 <div class="dias-semana">
-                    <input type="checkbox" id="segunda" name="data_disp" value="1">
-                    <label for="segunda" title="Segunda-feira">S</label>
-
-                    <input type="checkbox" id="terca" name="data_disp" value="2">
-                    <label for="terca" title="Terça-feira">T</label>
-
-                    <input type="checkbox" id="quarta" name="data_disp" value="3">
-                    <label for="quarta" title="Quarta-feira">Q</label>
-
-                    <input type="checkbox" id="quinta" name="data_disp" value="4">
-                    <label for="quinta" title="Quinta-feira">Q</label>
-
-                    <input type="checkbox" id="sexta" name="data_disp" value="5">
-                    <label for="sexta" title="Sexta-feira">S</label>
-
-                    <input type="checkbox" id="sabado" name="data_disp" value="6">
-                    <label for="sabado" title="Sábado">S</label>
-
-                    <input type="checkbox" id="domingo" name="data_disp" value="7">
-                    <label for="domingo" title="Domingo">D</label>
+                    <input type="checkbox" id="segunda" value="1"><label for="segunda" title="Segunda-feira">S</label>
+                    <input type="checkbox" id="terca" value="2"><label for="terca" title="Terça-feira">T</label>
+                    <input type="checkbox" id="quarta" value="3"><label for="quarta" title="Quarta-feira">Q</label>
+                    <input type="checkbox" id="quinta" value="4"><label for="quinta" title="Quinta-feira">Q</label>
+                    <input type="checkbox" id="sexta" value="5"><label for="sexta" title="Sexta-feira">S</label>
+                    <input type="checkbox" id="sabado" value="6"><label for="sabado" title="Sábado">S</label>
+                    <input type="checkbox" id="domingo" value="7"><label for="domingo" title="Domingo">D</label>
                 </div>
             </div>
-
             <div class="form-group">
-                <label for="minutes">TEMPO DISPONÍVEL POR DIA</label>
-                <select id="minutes" name="minutes">
+                <label>TEMPO DISPONÍVEL POR DIA</label>
+                <select id="minutes">
                     <option value="30">30 minutos</option>
                     <option value="45">45 minutos</option>
                     <option value="60">1 hora</option>
-                    <option value="90">1 hora e 30 minutos </option>
-                    <option value="120">2 horas </option>
+                    <option value="90">1 hora e 30 minutos</option>
+                    <option value="120">2 horas</option>
                 </select>
             </div>
-            
-            <button type="submit" class="submit-button">Gerar Cronograma</button>
+            <div class="button-group">
+                <button type="button" id="btn-cronograma" class="action-button">Gerar Cronograma</button>
+                <button type="button" id="btn-agenda" class="action-button" disabled>
+                    Gerar Agenda
+                    <span class="badge">Em Breve</span>
+                </button>
+            </div>
         </form>
     </div>
 
     <script>
-        document.getElementById('cronograma-form').addEventListener('submit', function(event) {
-            // 1. Impede o envio padrão do formulário
-            event.preventDefault(); 
-            
-            // 2. Define a URL base da sua API
-            const baseUrl = 'http://plataforma.termineseusestudos.com.br/api/cronograma';
-            
-            // 3. Pega os valores dos campos
+        // O JavaScript foi simplificado, pois o segundo botão está desativado
+        function getFormData() {
             const cpf = document.getElementById('cpf').value;
             const minutes = document.getElementById('minutes').value;
+            const diasSelecionados = document.querySelectorAll('.dias-semana input:checked');
             
-            // 4. Pega todos os checkboxes de dias que foram marcados
-            const diasSelecionados = document.querySelectorAll('input[name="data_disp"]:checked');
-            
-            // 5. Mapeia os valores e junta com vírgula (ex: "1,3,5")
+            if (!cpf || diasSelecionados.length === 0) {
+                alert('Por favor, preencha o CPF e selecione ao menos um dia.');
+                return null;
+            }
             const dataDisp = Array.from(diasSelecionados).map(cb => cb.value).join(',');
+            return { cpf, minutes, dataDisp };
+        }
+
+        // Apenas o botão "Gerar Cronograma" precisa de uma função agora
+        document.getElementById('btn-cronograma').addEventListener('click', function() {
+            const dados = getFormData();
+            if (!dados) return;
+
+            const baseUrl = 'http://plataforma.termineseusestudos.com.br/api/cronograma';
+            const urlFinal = `${baseUrl}?cpf=${dados.cpf}&data_disp=${dados.dataDisp}&minutes=${dados.minutes}`;
             
-            // 6. Monta a URL final com os parâmetros
-            const urlFinal = `${baseUrl}?cpf=${cpf}&data_disp=${dataDisp}&minutes=${minutes}`;
-            
-            // 7. Exibe a URL no console (útil para depuração)
-            console.log('Enviando para:', urlFinal);
-            
-            // 8. Redireciona o navegador para a URL da API, enviando a requisição GET
+            console.log('Redirecionando para Cronograma:', urlFinal);
             window.location.href = urlFinal;
         });
-    </script>
 
+    </script>
 </body>
 </html>
